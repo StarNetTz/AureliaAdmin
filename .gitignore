@@ -1,0 +1,4 @@
+.chrome
+node_modules
+/dist
+test/coverage-jest
