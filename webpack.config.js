@@ -118,7 +118,8 @@ module.exports = ({ production, server, extractCss, coverage } = {}) => ({
     new TsConfigPathsPlugin(),
     new CheckerPlugin(),
     new CopyWebpackPlugin([
-      { from: srcDir+'/locale', to: outDir+'/locale' }
+      { from: srcDir+'/locale', to: outDir+'/locale' },
+      { from: srcDir+'/assets', to: outDir+'/assets' }
     ]),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
