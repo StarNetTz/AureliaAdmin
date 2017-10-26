@@ -23,7 +23,7 @@ const cssRules = [
   { loader: 'css-loader' },
 ];
 
-module.exports = ({production, server, extractCss, coverage} = {}) => ({
+module.exports = ({ production, server, extractCss, coverage } = {}) => ({
   resolve: {
     extensions: ['.ts', '.js'],
     modules: [srcDir, 'node_modules'],
@@ -71,7 +71,18 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       },
       {
         test: /\.scss$/,
-        use: ['css-loader', 'sass-loader'],
+        use: [
+          { loader: 'css-loader' },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: function () {
+                return [require('precss'), require('autoprefixer')];
+              }
+            }
+          },
+          { loader: 'sass-loader' }
+        ],
         issuer: /\.html?$/i
       },
       { test: /\.html$/i, loader: 'html-loader' },
@@ -95,13 +106,20 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
   plugins: [
     new AureliaPlugin(),
     new ProvidePlugin({
-      'Promise': 'bluebird'
+      'Promise': 'bluebird',
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
     }),
     new ModuleDependenciesPlugin({
-      'aurelia-testing': [ './compile-spy', './view-spy' ]
+      'aurelia-testing': ['./compile-spy', './view-spy']
     }),
     new TsConfigPathsPlugin(),
     new CheckerPlugin(),
+    new CopyWebpackPlugin([
+      { from: srcDir+'/locale', to: outDir+'/locale' }
+    ]),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
       minify: production ? {

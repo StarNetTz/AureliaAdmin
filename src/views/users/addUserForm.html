@@ -1,0 +1,45 @@
+<template>
+  <form class="px-4 py-3">
+    <div class="form-group">
+      <label for="newUser_Username">
+        <span t="addUser.userName"></span>
+      </label>
+      <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.UserName" t="[placeholder]addUser.userName">
+    </div>
+    <div class="form-group">
+      <label for="newUser_DisplayName">
+        <span t="addUser.displayName"></span>
+      </label>
+      <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.DisplayName" t="[placeholder]addUser.displayName">
+    </div>
+    <div class="form-group">
+      <label for="exampleDropdownFormEmail1">
+        <span t="addUser.email"></span>
+      </label>
+      <input type="email" class="form-control" id="exampleDropdownFormEmail1" value.bind="newUserModel.Email" placeholder="email@example.com">
+    </div>
+    <div class="form-group">
+      <label for="newUser_Password">
+        <span t="addUser.password"></span>
+      </label>
+      <input type="password" class="form-control" id="newUser_Password" value.bind="newUserModel.Password" t="[placeholder]addUser.password">
+    </div>
+    <div class="form-group">
+      <label for="newUser_ConfirmPassword">
+        <span t="addUser.confirmPassword"></span>
+      </label>
+      <input type="password" class="form-control" id="newUser_ConfirmPassword" value.bind="newUserModel.ConfirmPassword" t="[placeholder]addUser.confirmPassword">
+    </div>
+    <div class="form-group">
+      <label repeat.for="role of roles">
+        <input type="checkbox" model.bind="role.Name" checked.bind="newUserModel.Roles">
+        <span class="mr-2">${role.DisplayName}</span>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary" click.delegate="addUser()">
+      <span t="addUser.addUser"></span>
+    </button>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">New around here? Sign up</a>
+  </form>
+</template>

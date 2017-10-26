@@ -1,0 +1,4 @@
+<template>  
+    <compose if.bind="!isAuthenticated" view="./loginForm.html"></compose>   
+    <compose if.bind="isAuthenticated" view="./userInfo.html"></compose>
+</template>

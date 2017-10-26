@@ -1,0 +1,32 @@
+<template>
+  <require from="../login/login"></require>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="/assets/aurelia-logo.png" width="30" height="30" alt="">
+      <span i18n="AppTitle"></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li repeat.for="row of router.navigation | authFilter: isAuthenticated | authorizedFilter" class="${row.isActive ? 'nav-item active' : 'nav-item'}">
+          <a class="nav-link" href.bind="row.href" t="${row.title}"></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false" t="topNavBar.selectLanguage">
+
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" click.delegate="setLocale('en')">English</a>
+            <a class="dropdown-item" href="#" click.delegate="setLocale('bs')">Bosnian</a>
+          </div>
+        </li>
+      </ul>
+      <login></login>      
+    </div>
+  </nav>
+</template>

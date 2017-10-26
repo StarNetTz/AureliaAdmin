@@ -1,0 +1,21 @@
+<template>
+  <require from="../../components/pagination/pagination"></require>
+  <div class="container mt-2">
+    <div class="row">
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="text" value.bind="filter & debounce:400" t="[placeholder]userManagement.searchUsers"
+          id="top-search">
+      </form>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <span t="addUser.addUser"></span>
+        </button>
+        <div class="dropdown-menu">
+          <compose view="./addUserForm.html"></compose>
+        </div>
+      </div>
+    </div>
+  </div>
+  <compose view="./usersManagement.html"></compose>
+</template>

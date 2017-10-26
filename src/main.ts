@@ -4,6 +4,28 @@ import {Aurelia} from 'aurelia-framework'
 import environment from './environment';
 import {PLATFORM} from 'aurelia-pal';
 import * as Bluebird from 'bluebird';
+import Backend from 'i18next-xhr-backend';
+import {AuthConfig} from './authConfig';
+import * as Toastr from 'toastr';
+
+Toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "700",
+  "timeOut": "2000",
+  "extendedTimeOut": "700",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
 
 // remove out if you don't want a Promise polyfill (remove also from webpack.config.js)
 Bluebird.config({ warnings: { wForgottenReturn: false } });
@@ -11,7 +33,33 @@ Bluebird.config({ warnings: { wForgottenReturn: false } });
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
-    .feature(PLATFORM.moduleName('resources/index'));
+    .globalResources([
+      PLATFORM.moduleName('aurelia-authentication/authFilterValueConverter'),
+      PLATFORM.moduleName('resources/value-converters/authorizedFilterValueConverter')
+    ])
+    .feature(PLATFORM.moduleName('resources/index'))
+    .plugin(PLATFORM.moduleName('aurelia-validation'))
+    .plugin(PLATFORM.moduleName('aurelia-i18n'), (instance) => {
+      instance.i18next.use(Backend);
+      return instance.setup({
+        backend: {
+          loadPath: './locale/{{lng}}/{{ns}}.json',
+        },
+        ns: ['translation'],
+        defaultNS: 'translation',
+        lng: 'en',
+        attributes: ['i18n', 't'],
+        fallbackLng: 'en',
+        debug: false
+      });
+    })
+    .plugin(PLATFORM.moduleName('aurelia-api'), config => {
+      config.registerEndpoint('api', 'http://bookmakerapi.dyndns-ip.com');
+      config.registerEndpoint('auth', 'http://bookmakerapi.dyndns-ip.com');
+    })
+    .plugin(PLATFORM.moduleName('aurelia-authentication'), baseConfig => {
+      baseConfig.configure(AuthConfig);
+    });
 
   // Uncomment the line below to enable animation.
   // aurelia.use.plugin(PLATFORM.moduleName('aurelia-animator-css'));
@@ -28,5 +76,5 @@ export function configure(aurelia: Aurelia) {
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
   }
 
-  aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
+  aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('shell')));
 }
