@@ -59,6 +59,7 @@ export class Users {
         this.newUserModel.DisplayName = '';
         this.newUserModel.Email = '';
         this.newUserModel.Password = '';
+        this.newUserModel.ConfirmPassword = '';
         this.newUserModel.Roles = [];
     }
 
@@ -135,7 +136,6 @@ export class Users {
     async addUser() {
         try {
             var res = await this.validationController.validate();
-            console.log(res);
             if (res.valid) {
                 $(".dropdown-menu").removeClass("show");
                 var resp = await this.api.post('/users', this.newUserModel);
@@ -144,7 +144,6 @@ export class Users {
                 Toastr.success(this.i18n.tr("addUser.userAdded"));
             }
             else {
-
             }
         } catch (error) {
             Toastr.error("Failed to add user", error);
@@ -154,18 +153,40 @@ export class Users {
     }
 
     async refresh(val) {
-        let qry = { PageSize: this.pageSize, CurrentPage: val, Qry: this.filter };
-        this.usersModel = await this.api.find('/users', qry);
-        this.setPaginationParameters(this.usersModel);
+       this.currentPage=val;
+       await this.filterUsers();
     }
 
     editUser(user) {
         user.isEditing = true;
     }
 
+    async deleteUser() {
+        try {
+            Toastr.success(this.i18n.tr("addUser.userAdded"));
+        }
+        catch (error) {
+            Toastr.error("Failed to add user", error);
+        }
+        finally {
+        }
+    }
+
     async saveChanges(user) {
-        var resp = await this.api.request('PUT', '/users', user);
-        user.isEditing = false;
+        try {
+
+            var resp = await this.api.request('PUT', '/users', user);
+            user.isEditing = false;
+
+
+        }
+        catch (error) {
+            Toastr.error("Failed to add user", error);
+        }
+        finally {
+        }
+
+
     }
 
     initializeCopyProperty(user: any) {
