@@ -6,4 +6,6 @@ export class UserModel {
   Email:String;
   ConfirmPassword:String;
   Roles:Array<String>;
+  isActive: Boolean;
+  isAdmin:Boolean;
 }

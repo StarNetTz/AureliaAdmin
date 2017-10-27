@@ -20,7 +20,7 @@ export class Users {
     isFiltering: boolean; totalItems: number; showPagination: boolean;
     usersModel: any;
     newUserModel: UserModel;
-    validationController = null;
+    validationController: ValidationController;
     i18n: I18N;
     editing = null; editObject: any; editModel: any;
 
@@ -83,7 +83,7 @@ export class Users {
         this.setPaginationParameters(this.usersModel);
     }
 
-    setPaginationParameters(usersModel) {       
+    setPaginationParameters(usersModel) {
         this.setIsAdminProperty(usersModel.Data);
         this.totalItems = usersModel.TotalItems;
         this.currentPage = usersModel.CurrentPage;
@@ -98,7 +98,7 @@ export class Users {
             else {
                 users[i].isAdmin = false;
             }
-        }      
+        }
     }
 
     async filterChanged() {
@@ -126,8 +126,25 @@ export class Users {
     }
 
     async addUser() {
-        $(".dropdown-menu").removeClass("show");
-        var resp = await this.api.post('/users', this.newUserModel);
+        var res = await this.validationController.validate();
+        console.log(res);
+        if (res.valid) {
+            $(".dropdown-menu").removeClass("show");
+            var resp = await this.api.post('/users', this.newUserModel);
+            this.initUsers();
+            this.notifyUserOfSuccess();
+        }
+        else {
+            this.notifyUserOfException();
+        }
+    }
+
+    notifyUserOfSuccess() {
+        Toastr.success(this.i18n.tr("addUser.userAdded"));
+    }
+
+    notifyUserOfException() {
+        Toastr.error(this.i18n.tr("addUser.fieldsRequested"));
     }
 
     editUser(user) {

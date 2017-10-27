@@ -36,7 +36,9 @@
     "email":"Email",
     "userName":"Korisničko ime",
     "displayName": "Display name",
-    "confirmPassword":"Potvrdi lozinku"
+    "confirmPassword":"Potvrdi lozinku",
+    "userAdded":"Korisnik dodan",
+    "fieldsRequested":"Popunite označena polja"
   }, 
   "editUser":{
     "editUser":"Ažuriraj korisnika",
