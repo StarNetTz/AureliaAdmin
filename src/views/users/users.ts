@@ -14,39 +14,44 @@ export class Users {
     api: Rest;
     eventAggregator: EventAggregator;
     isAddingUserSubscriber: any;
-    roles: any;
-    pageSize: number; currentPage: number;
-    @bindable filter: String;
-    isFiltering: boolean; totalItems: number; showPagination: boolean;
-    usersModel: any;
-    newUserModel: UserModel;
     validationController: ValidationController;
     i18n: I18N;
-    editing = null; editObject: any; editModel: any;
+    roles: any;
+
+    @bindable filter: String;
+    isFiltering: boolean;
+
+    newUserModel: UserModel;
+
+    pageSize: number;
+    currentPage: number;
+    totalItems: number;
+    showPagination: boolean;
+
+    usersModel: any;
 
     constructor(eventAggregator: EventAggregator, config: Config, validationController: ValidationController, i18n, Roles) {
         this.eventAggregator = eventAggregator;
         this.api = config.getEndpoint('api');
-        this.totalItems = 0;
-        this.currentPage = 0;
-        this.pageSize = 9;
-        this.filter = "";
-        this.showPagination = false;
-        this.newUserModel = new UserModel();
         this.validationController = validationController;
         this.i18n = i18n;
         this.roles = Roles.roles;
+
+        this.filter = "";
+
+        this.totalItems = 0;
+        this.currentPage = 0;
+        this.pageSize = 9;
+        this.showPagination = false;
+
+        this.newUserModel = new UserModel();
     }
 
     attached() {
         this.validationController.addRenderer(new BootstrapFormRenderer());
         this.resetModel();
         this.setupValidationRules();
-        this.initUsers();
-    }
-
-    detached() {
-        this.validationController.removeRenderer(new BootstrapFormRenderer());
+        this.filterUsers();
     }
 
     resetModel() {
@@ -58,6 +63,7 @@ export class Users {
     }
 
     setupValidationRules() {
+        this.initializeCustomValidationRules();
         ValidationRules
             .ensure('UserName')
             .displayName(this.i18n.tr("addUser.userName"))
@@ -74,35 +80,25 @@ export class Users {
             .ensure('Password')
             .displayName(this.i18n.tr("addUser.password"))
             .required()
+            .ensure('ConfirmPassword')
+            .required()
+            .satisfiesRule('matchesProperty', 'Password')
             .on(this.newUserModel);
     }
 
-    async initUsers() {
-        let qry = { PageSize: this.pageSize, CurrentPage: this.currentPage, Qry: "" };
-        this.usersModel = await this.api.find('/users', qry);
-        this.setPaginationParameters(this.usersModel);
-    }
-
-    setPaginationParameters(usersModel) {
-        this.setIsAdminProperty(usersModel.Data);
-        this.totalItems = usersModel.TotalItems;
-        this.currentPage = usersModel.CurrentPage;
-        this.showPagination = usersModel.TotalItems > this.pageSize;
-    }
-
-    setIsAdminProperty(users) {
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].Roles.includes('admin')) {
-                users[i].isAdmin = true;
-            }
-            else {
-                users[i].isAdmin = false;
-            }
-        }
-    }
-
-    async filterChanged() {
-        await this.filterUsers();
+    initializeCustomValidationRules() {
+        ValidationRules.customRule(
+            'matchesProperty',
+            (value, obj, otherPropertyName) =>
+                value === null
+                || value === undefined
+                || value === ''
+                || obj[otherPropertyName] === null
+                || obj[otherPropertyName] === undefined
+                || obj[otherPropertyName] === ''
+                || value === obj[otherPropertyName],
+            '${$displayName} must match ${$getDisplayName($config.otherPropertyName)}', otherPropertyName => ({ otherPropertyName })
+        );
     }
 
     async filterUsers() {
@@ -110,6 +106,8 @@ export class Users {
             this.isFiltering = true;
             let qry = { PageSize: this.pageSize, CurrentPage: this.currentPage, Qry: this.filter };
             this.usersModel = await this.api.find('/users', qry);
+
+            this.transformUsersModel(this.usersModel.Data);
             this.setPaginationParameters(this.usersModel);
         } catch (error) {
             Toastr.error("Failed to filter users", error);
@@ -119,56 +117,75 @@ export class Users {
         }
     }
 
+    transformUsersModel(users) {
+        for (let user of users) {
+            if (user.Roles.includes('admin'))
+                user.isAdmin = true;
+            user.isEditing = false;
+            this.initializeCopyProperty(user);
+        }
+    }
+
+    setPaginationParameters(usersModel) {
+        this.totalItems = usersModel.TotalItems;
+        this.currentPage = usersModel.CurrentPage;
+        this.showPagination = usersModel.TotalItems > this.pageSize;
+    }
+
+    async addUser() {
+        try {
+            var res = await this.validationController.validate();
+            console.log(res);
+            if (res.valid) {
+                $(".dropdown-menu").removeClass("show");
+                var resp = await this.api.post('/users', this.newUserModel);
+                this.resetModel();
+                this.filterUsers();
+                Toastr.success(this.i18n.tr("addUser.userAdded"));
+            }
+            else {
+
+            }
+        } catch (error) {
+            Toastr.error("Failed to add user", error);
+        }
+        finally {
+        }
+    }
+
     async refresh(val) {
         let qry = { PageSize: this.pageSize, CurrentPage: val, Qry: this.filter };
         this.usersModel = await this.api.find('/users', qry);
         this.setPaginationParameters(this.usersModel);
     }
 
-    async addUser() {
-        var res = await this.validationController.validate();
-        console.log(res);
-        if (res.valid) {
-            $(".dropdown-menu").removeClass("show");
-            var resp = await this.api.post('/users', this.newUserModel);
-            this.initUsers();
-            this.notifyUserOfSuccess();
-        }
-        else {
-            this.notifyUserOfException();
-        }
-    }
-
-    notifyUserOfSuccess() {
-        Toastr.success(this.i18n.tr("addUser.userAdded"));
-    }
-
-    notifyUserOfException() {
-        Toastr.error(this.i18n.tr("addUser.fieldsRequested"));
-    }
-
     editUser(user) {
-        this.editing = user;
-        this.editObject = user;
-        this.editModel = Object.assign({}, user);
+        user.isEditing = true;
     }
 
-    async saveChanges() {
-        this.editObject.UserId = this.editModel.Id;
-        this.editObject.UserName = this.editModel.UserName;
-        this.editObject.DisplayName = this.editModel.DisplayName;
-        this.editObject.Email = this.editModel.Email;
-        this.editObject.Password = this.editModel.Password;
-        this.editObject.Roles = this.editModel.Roles;
-        this.editObject.isAdmin = this.editModel.Roles.includes('admin');
-        var resp = await this.api.request('PUT', '/users', this.editObject);
-        this.editing = null;
-        this.editObject = null;
-        this.editModel = null;
+    async saveChanges(user) {
+        var resp = await this.api.request('PUT', '/users', user);
+        user.isEditing = false;
     }
 
-    cancel() {
-        this.editing = null;
+    initializeCopyProperty(user: any) {
+        user.copy = undefined;
+        let copy = Object.assign({}, user);
+        user.copy = copy;
+    }
+
+    cancel(user) {
+        let original = user.copy;
+        this.initializeCopyProperty(original);
+        user = Object.assign(user, original);
+    }
+
+    async filterChanged() {
+        await this.filterUsers();
+    }
+
+    detached() {
+        this.validationController.removeRenderer(new BootstrapFormRenderer());
     }
 
 }
