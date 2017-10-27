@@ -1,48 +1,48 @@
 {
-  "AppTitle": "Admin skeleton",
-  "ok" : "Ok",
-  "cancel" :"Cancel",
-  "topNavBar" : {
-    "welcome" : "Welcome",
-    "dashboard" : "Dashboard",
-    "userManagement" : "User management",
-    "selectLanguage" : "Select language"
-  },
-  "welcomeScreen" : {
-    "jumboMessage" : "Hello, world!",
-    "jumboDescription" : "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.",
-    "additionalExplanation" :"It uses utility classes for typography and spacing to space content out within the larger container.",
-    "showModal" : "Show modal",
-    "modalMsg" : "You get this, right?",
-    "showInfoNotification" : "Info notification",
-    "showSuccessNotification" : "Success notification",
-    "showErrorNotification" : "Error notification"
-  },
-  "login" : {
-    "username" : "Username",
-    "password" : "Password",
-    "welcome": "Welcome",
-    "login" : "Log in",
-    "logout" : "Log out"
-  },
-  "userManagement" : {
-    "searchUsers" : "Search users"
-  },
-  "search": "Search",
-  "addUser":{
-    "addUser": "Add user",
-    "name": "Name",
-    "password":"Password",
-    "email":"Email",
-    "userName":"Username",
-    "displayName": "Display name",
-    "confirmPassword":"Confirm password"
-  },
-  "editUser":{
-    "editUser":"Edit user",
-    "saveChanges":"Save changes",
-    "roles":"Roles"
+    "AppTitle": "Admin skeleton",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "topNavBar": {
+        "welcome": "Welcome",
+        "dashboard": "Dashboard",
+        "userManagement": "User management",
+        "selectLanguage": "Select language"
+    },
+    "welcomeScreen": {
+        "jumboMessage": "Hello, world!",
+        "jumboDescription": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.",
+        "additionalExplanation": "It uses utility classes for typography and spacing to space content out within the larger container.",
+        "showModal": "Show modal",
+        "modalMsg": "You get this, right?",
+        "showInfoNotification": "Info notification",
+        "showSuccessNotification": "Success notification",
+        "showErrorNotification": "Error notification"
+    },
+    "login": {
+        "username": "Username",
+        "password": "Password",
+        "welcome": "Welcome",
+        "login": "Log in",
+        "logout": "Log out"
+    },
+    "userManagement": {
+        "searchUsers": "Search users"
+    },
+    "search": "Search",
+    "addUser": {
+        "addUser": "Add user",
+        "name": "Name",
+        "password": "Password",
+        "email": "Email",
+        "userName": "Username",
+        "displayName": "Display name",
+        "confirmPassword": "Confirm password"
+    },
+    "editUser": {
+        "editUser": "Edit user",
+        "saveChanges": "Save changes",
+        "roles": "Roles"
 
-  }
+    }
 
 }
