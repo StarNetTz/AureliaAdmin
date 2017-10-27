@@ -1,16 +1,14 @@
 <template>
   <div class="col-sm mb-2">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">${user.DisplayName}
-                <i class="${ user.isAdmin ? 'fa fa-user' : '' }" aria-hidden="true"></i>
-            </h4>
-            <p class="card-text">${user.UserName}</p>
+      <div class="${!user.isAdmin ? 'card bg-light mb-3' : 'card border-primary mb-3'}" style="max-width: 20rem; min-width: 20rem;">
+          <div class="card-header">${user.DisplayName}<i class="fa fa-trash-o" click.delegate="showDeleteUserModal(user)"></i></div>
+          <div class="card-body">
+            <h4 class="card-title">${user.UserName}</h4>
             <p class="card-text">${user.Email}</p>
             <a href="#" class="btn btn-primary" click.delegate="editUser(user)">
                 <span t="editUser.editUser"></span>
             </a>
+          </div>
         </div>
-    </div>
 </div>
 </template>
