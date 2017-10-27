@@ -43,7 +43,10 @@
   "editUser":{
     "editUser":"Ažuriraj korisnika",
     "saveChanges":"Sačuvaj promjene",
-    "roles":"Uloge"
+    "roles":"Uloge",
+    "deleteUser":"Izbriši korisnika",
+    "userDeleted":"Korisnik izbrisan!",
+    "cannotDeleteAdmin":"Nemoguće izbrisati administratora"
 
   }
  

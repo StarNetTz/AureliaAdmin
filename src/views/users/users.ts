@@ -8,8 +8,10 @@ import { Roles } from './roles';
 import { ValidationRules, ValidationController } from 'aurelia-validation';
 import { BootstrapFormRenderer } from '../../resources/bootstrap-form-renderer';
 import { I18N } from 'aurelia-i18n';
+import { DialogService } from 'aurelia-dialog';
+import { DangerModal } from './dangerModal/dangerModal';
 
-@inject(EventAggregator, Config, NewInstance.of(ValidationController), I18N, Roles)
+@inject(EventAggregator, Config, NewInstance.of(ValidationController), I18N, Roles, DialogService)
 export class Users {
     api: Rest;
     eventAggregator: EventAggregator;
@@ -17,6 +19,7 @@ export class Users {
     validationController: ValidationController;
     i18n: I18N;
     roles: any;
+    dialogService: DialogService;
 
     @bindable filter: String;
     isFiltering: boolean;
@@ -30,12 +33,13 @@ export class Users {
 
     usersModel: any;
 
-    constructor(eventAggregator: EventAggregator, config: Config, validationController: ValidationController, i18n, Roles) {
+    constructor(eventAggregator: EventAggregator, config: Config, validationController: ValidationController, i18n, Roles, dialogService: DialogService) {
         this.eventAggregator = eventAggregator;
         this.api = config.getEndpoint('api');
         this.validationController = validationController;
         this.i18n = i18n;
         this.roles = Roles.roles;
+        this.dialogService = dialogService;
 
         this.filter = "";
 
@@ -144,6 +148,7 @@ export class Users {
                 Toastr.success(this.i18n.tr("addUser.userAdded"));
             }
             else {
+                Toastr.error("All fields requested");
             }
         } catch (error) {
             Toastr.error("Failed to add user", error);
@@ -153,35 +158,58 @@ export class Users {
     }
 
     async refresh(val) {
-       this.currentPage=val;
-       await this.filterUsers();
+        this.currentPage = val;
+        await this.filterUsers();
     }
 
     editUser(user) {
         user.isEditing = true;
     }
 
-    async deleteUser() {
+    showDeleteUserModal(user) {      
+        this.dialogService.open({ viewModel: DangerModal, model: user, lock: false }).whenClosed(response => {
+            if (!response.wasCancelled) {              
+                this.deleteUser(user);
+            } else {               
+            }
+        });
+    }
+
+    async deleteUser(user) {      
         try {
-            Toastr.success(this.i18n.tr("addUser.userAdded"));
+            if (!this.isAdmin(user)) {
+                // var resp = await this.api.request('DELETE', '/users', user);
+                var index=this.usersModel.Data.indexOf(user);
+                if(index>-1){
+                    this.usersModel.Data.splice(index,1);
+                }
+              //  this.filterUsers();
+                Toastr.success(this.i18n.tr("editUser.userDeleted"));
+            } else {
+                Toastr.error(this.i18n.tr("editUser.cannotDeleteAdmin"));
+            }
         }
         catch (error) {
-            Toastr.error("Failed to add user", error);
+            Toastr.error("Failed to delete user", error);
         }
         finally {
         }
     }
 
+    isAdmin(user) {
+        return user.Email === 'admin@bookmaker.com';
+    }
+
     async saveChanges(user) {
         try {
-
+            if (user.Roles.includes('admin'))
+                user.isAdmin = true;
             var resp = await this.api.request('PUT', '/users', user);
             user.isEditing = false;
-
-
+            Toastr.success(this.i18n.tr("editUser.userChanged"));
         }
         catch (error) {
-            Toastr.error("Failed to add user", error);
+            Toastr.error("Failed to edit user", error);
         }
         finally {
         }

@@ -41,7 +41,10 @@
     "editUser": {
         "editUser": "Edit user",
         "saveChanges": "Save changes",
-        "roles": "Roles"
+        "roles": "Roles",
+        "deleteUser":"Delete user",
+        "userDeleted":"User deleted!",
+        "cannotDeleteAdmin":"Cannot delete admin"
 
     }
 
