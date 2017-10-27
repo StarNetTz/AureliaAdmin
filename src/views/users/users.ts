@@ -183,6 +183,7 @@ export class Users {
                 if(index>-1){
                     this.usersModel.Data.splice(index,1);
                 }
+              //  this.filterUsers();
                 Toastr.success(this.i18n.tr("editUser.userDeleted"));
             } else {
                 Toastr.error(this.i18n.tr("editUser.cannotDeleteAdmin"));
