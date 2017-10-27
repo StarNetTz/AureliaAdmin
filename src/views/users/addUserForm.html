@@ -4,37 +4,41 @@
       <label for="newUser_Username">
         <span t="addUser.userName"></span>
       </label>
-      <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.UserName" t="[placeholder]addUser.userName">
+      <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.UserName & validate" t="[placeholder]addUser.userName">
     </div>
     <div class="form-group">
       <label for="newUser_DisplayName">
         <span t="addUser.displayName"></span>
       </label>
-      <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.DisplayName" t="[placeholder]addUser.displayName">
+      <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.DisplayName & validate" t="[placeholder]addUser.displayName">
     </div>
     <div class="form-group">
       <label for="exampleDropdownFormEmail1">
         <span t="addUser.email"></span>
       </label>
-      <input type="email" class="form-control" id="exampleDropdownFormEmail1" value.bind="newUserModel.Email" placeholder="email@example.com">
+      <input type="email" class="form-control" id="exampleDropdownFormEmail1" value.bind="newUserModel.Email & validate" placeholder="email@example.com">
     </div>
     <div class="form-group">
       <label for="newUser_Password">
         <span t="addUser.password"></span>
       </label>
-      <input type="password" class="form-control" id="newUser_Password" value.bind="newUserModel.Password" t="[placeholder]addUser.password">
+      <input type="password" class="form-control" id="newUser_Password" value.bind="newUserModel.Password & validate" t="[placeholder]addUser.password">
     </div>
     <div class="form-group">
       <label for="newUser_ConfirmPassword">
         <span t="addUser.confirmPassword"></span>
       </label>
-      <input type="password" class="form-control" id="newUser_ConfirmPassword" value.bind="newUserModel.ConfirmPassword" t="[placeholder]addUser.confirmPassword">
+      <input type="password" class="form-control" id="newUser_ConfirmPassword" value.bind="newUserModel.ConfirmPassword & validate" t="[placeholder]addUser.confirmPassword">
     </div>
     <div class="form-group">
       <label repeat.for="role of roles">
         <input type="checkbox" model.bind="role.Name" checked.bind="newUserModel.Roles">
         <span class="mr-2">${role.DisplayName}</span>
       </label>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" checked.bind="newUserModel.isActive=$event.target.checked">
+      <span class="mr-2">Activate user </span>
     </div>
     <button type="submit" class="btn btn-primary" click.delegate="addUser()">
       <span t="addUser.addUser"></span>

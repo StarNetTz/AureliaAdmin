@@ -36,7 +36,9 @@
     "email":"Email",
     "userName":"Username",
     "displayName": "Display name",
-    "confirmPassword":"Confirm password"
+    "confirmPassword":"Confirm password",
+    "userAdded":"User added",
+    "fieldsRequested":"Fill in marked fileds"
   },
   "editUser":{
     "editUser":"Edit user",
