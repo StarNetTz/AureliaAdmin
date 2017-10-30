@@ -7,8 +7,8 @@
            max-page-blocks="5"></pagination>
         </div>
       </div>
-       <div class="row">
-           <div repeat.for="user of usersModel.Data">
+       <div class="row d-flex justify-content-around">
+           <div repeat.for="user of usersModel.Data" class="p-1">
              <compose if.bind="!user.isEditing" view="./userView.html"></compose>
              <compose if.bind="user.isEditing" view="./userEdit.html"></compose>
            </div>
