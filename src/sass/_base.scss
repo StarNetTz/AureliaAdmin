@@ -1,0 +1,16 @@
+.deleteUserModal {
+    width: 30rem;
+    height: auto;
+}
+
+ux-dialog>ux-dialog-body {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.navbar-custom {
+    background: $primary-color-one;
+    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
+}
