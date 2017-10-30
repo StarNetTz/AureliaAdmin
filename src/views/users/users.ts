@@ -45,7 +45,7 @@ export class Users {
 
         this.totalItems = 0;
         this.currentPage = 0;
-        this.pageSize = 9;
+        this.pageSize = 10;
         this.showPagination = false;
 
         this.newUserModel = new UserModel();
