@@ -14,3 +14,107 @@ ux-dialog>ux-dialog-body {
     background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
     background: linear-gradient(to right, #9e0236 0%, #510035 100%);
 }
+
+.input-group-addon {
+    border-color: #f9c618;
+    background: transparent;
+    color: #f9c618;
+    &:hover {
+        background-color: #fab638;
+        color: #fff;
+        border-color: #fab638;
+    }
+}
+
+.form-control {
+    color: #f9c618;
+    border-color: #f9c618;
+    background: transparent;
+    &:hover {
+        background-color: #ffffff;
+        color: rgb(43, 43, 43);
+        border-color: #fab638;
+        outline: none;
+    }
+}
+
+.card-header {
+    background: $primary-color-one;
+    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
+    color: #fff;
+}
+
+.btn-outline-prev {
+    position: relative;
+    top: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #f9c618;
+    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
+    color: #f9c618;
+    border-radius: 0.2rem 0 0 0.2rem;
+    border-right: none;
+    &:hover {
+        background: #fab638;
+        color: #fff;
+        border-color: #fab638;
+        text-decoration: none;
+    }
+    &:active {
+        background: #fab638;
+        color: #fff;
+        border-color: #fab638;
+        outline: none;
+    }
+}
+
+.btn-outline-next {
+    position: relative;
+    top: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #f9c618;
+    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
+    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
+    color: #f9c618;
+    border-radius: 0 0.2rem 0.2rem 0;
+    border-left: none;
+    &:hover {
+        background: #fab638;
+        color: #fff;
+        border-color: #fab638;
+        text-decoration: none;
+    }
+    &:active {
+        background: #fab638;
+        color: #fff;
+        border-color: #fab638;
+        outline: none;
+    }
+}
+
+.btn-outline-item {
+    position: relative;
+    top: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #f9c618;
+    border-right: none;
+    border-left: none;
+    background: transparent;
+    color: #f9c618;
+    &:hover {
+        background: #fab638;
+        color: #fff;
+        border-color: #fab638;
+        text-decoration: none;
+    }
+    &:active {
+        background: #fab638;
+        color: #fff;
+        border-color: #fab638;
+        outline: none;
+    }
+}
