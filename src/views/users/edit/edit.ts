@@ -33,15 +33,16 @@ export class Edit {
     }
 
     setupValidationRules() {
+        console.log("validation rules");
         this.initializeCustomValidationRules();
         ValidationRules
-            .ensure('UserName')
-            .displayName(this.i18n.tr("addUser.userName"))
+            .ensure('DisplayName')
+            .displayName(this.i18n.tr("addUser.displayName"))
             .required()
             .minLength(3)
             .maxLength(100)
-            .ensure('DisplayName')
-            .displayName(this.i18n.tr("addUser.displayName"))
+            .ensure('UserName')
+            .displayName(this.i18n.tr("addUser.userName"))
             .required()
             .ensure('Email')
             .displayName(this.i18n.tr("addUser.email"))
@@ -51,12 +52,14 @@ export class Edit {
             .displayName(this.i18n.tr("addUser.password"))
             .required()
             .ensure('ConfirmPassword')
+            .displayName(this.i18n.tr("addUser.password"))
             .required()
             .satisfiesRule('matchesProperty', 'Password')
             .on(this.user);
     }
 
     initializeCustomValidationRules() {
+        console.log("custom rule");
         ValidationRules.customRule(
             'matchesProperty',
             (value, obj, otherPropertyName) =>
@@ -82,26 +85,27 @@ export class Edit {
             var resp = await this.api.request('PUT', '/users', user);
             user.isEditing = false;
             Toastr.success(this.i18n.tr("editUser.userChanged"));
-
         }
         catch (error) {
-            console.log(error);
             Toastr.error("Failed to edit user", error);
         }
         finally {
         }
+
+
     }
 
     initializeCopyProperty(user: any) {
-        console.log(user);
-        let copy = Object.assign(user.copy, user);
+        user.copy = undefined;
+        let copy = Object.assign({}, user);
         user.copy = copy;
-        console.log(user.copy);
     }
 
     cancel(user) {
-        user = Object.assign(user, user.copy);
-        console.log(user);
+        let original = user.copy;
+        this.initializeCopyProperty(original);
+        user = Object.assign(user, original);
+        user.isEditing=false;
     }
 
     detached() {

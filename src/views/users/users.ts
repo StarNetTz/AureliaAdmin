@@ -200,38 +200,11 @@ export class Users {
     isAdmin(user) {
         return user.Email === 'admin@bookmaker.com';
     }
-
-    async saveChanges(user) {
-        try {
-            if (user.Roles.includes('admin')) {
-                user.isAdmin = true;
-            }
-            else {
-                user.isAdmin = false;
-            }
-            var resp = await this.api.request('PUT', '/users', user);
-            user.isEditing = false;
-            Toastr.success(this.i18n.tr("editUser.userChanged"));
-        }
-        catch (error) {
-            Toastr.error("Failed to edit user", error);
-        }
-        finally {
-        }
-
-
-    }
-
+  
     initializeCopyProperty(user: any) {
         user.copy = undefined;
         let copy = Object.assign({}, user);
         user.copy = copy;
-    }
-
-    cancel(user) {
-        let original = user.copy;       
-        this.initializeCopyProperty(original);
-        user = Object.assign(user, original);
     }
 
     async filterChanged() {

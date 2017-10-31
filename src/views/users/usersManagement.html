@@ -10,8 +10,7 @@
     </div>
     <div class="row d-flex justify-content-around">
       <div repeat.for="user of usersModel.Data" class="p-1">
-        <!-- <edit if.bind="user.isEditing" user.bind="user"></edit> -->
-        <compose if.bind="user.isEditing" view="./userEdit.html"></compose>
+        <edit if.bind="user.isEditing" user.bind="user"></edit>       
         <compose if.bind="!user.isEditing" view="./userView.html"></compose>
       </div>
     </div>
