@@ -45,7 +45,7 @@ export class Users {
 
         this.totalItems = 0;
         this.currentPage = 0;
-        this.pageSize = 10;
+        this.pageSize = 9;
         this.showPagination = false;
 
         this.newUserModel = new UserModel();
@@ -187,6 +187,7 @@ export class Users {
                 Toastr.success(this.i18n.tr("editUser.userDeleted"));
             } else {
                 Toastr.error(this.i18n.tr("editUser.cannotDeleteAdmin"));
+                
             }
         }
         catch (error) {
