@@ -45,7 +45,7 @@ export class Users {
 
         this.totalItems = 0;
         this.currentPage = 0;
-        this.pageSize = 9;
+        this.pageSize = 10;
         this.showPagination = false;
 
         this.newUserModel = new UserModel();
@@ -203,8 +203,12 @@ export class Users {
 
     async saveChanges(user) {
         try {
-            if (user.Roles.includes('admin'))
+            if (user.Roles.includes('admin')) {
                 user.isAdmin = true;
+            }
+            else {
+                user.isAdmin = false;
+            }
             var resp = await this.api.request('PUT', '/users', user);
             user.isEditing = false;
             Toastr.success(this.i18n.tr("editUser.userChanged"));
@@ -225,7 +229,7 @@ export class Users {
     }
 
     cancel(user) {
-        let original = user.copy;
+        let original = user.copy;       
         this.initializeCopyProperty(original);
         user = Object.assign(user, original);
     }
