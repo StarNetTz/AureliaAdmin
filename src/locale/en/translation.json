@@ -42,10 +42,10 @@
         "editUser": "Edit user",
         "saveChanges": "Save changes",
         "roles": "Roles",
-        "deleteUser":"Delete user",
-        "userDeleted":"User deleted!",
-        "cannotDeleteAdmin":"Cannot delete admin"
-
+        "deleteUser": "Delete",
+        "userDeleted": "User deleted!",
+        "cannotDeleteAdmin": "Cannot delete admin",
+        "deleteMessage": "Delete user"
     }
 
 }
