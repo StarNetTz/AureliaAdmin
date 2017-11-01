@@ -91,6 +91,10 @@ export class Adduser {
             var res = await this.validationController.validate();
             if (res.valid) {
                 $(".dropdown-menu").removeClass("show");
+                // for (let role:any={} of this.newUserModel.Roles) {
+                //     console.log(role);
+                // }
+                var resp = await this.api.post('/users', this.newUserModel);
                 this.resetModel();
                 this.filterusers();
                 Toastr.success(this.i18n.tr("addUser.userAdded"));
