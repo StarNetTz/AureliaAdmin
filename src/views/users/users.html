@@ -1,13 +1,15 @@
 <template>
-  <div class="container-fluid mt-5">
-    <div class="row">
-      <form class="form-inline ml-4">
-        <input class="form-control mr-sm-1" type="text" value.bind="filter & debounce:400" t="[placeholder]userManagement.searchUsers"
-          id="top-search">
-      </form>
-      <div class="dropdown">
+  <div class="container-fluid userManagmentBackground pt-5">
+    <div class="row d-flex justify-content-center pb-5">
+      <div class="col-3">
+        <form class="form-inline ml-3">
+          <input class="form-control" type="text" value.bind="filter & debounce:400" t="[placeholder]userManagement.searchUsers"
+            id="top-search" style="position: relative;left: 97px;width: 92%;">
+        </form>
+      </div>
+      <div class="dropdown col-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
+          aria-expanded="false" style="left: 40px; position: relative;">
           <span t="addUser.addUser"></span>
         </button>
         <div class="dropdown-menu">
