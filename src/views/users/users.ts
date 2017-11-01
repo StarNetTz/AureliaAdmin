@@ -1,44 +1,31 @@
 import * as $ from 'jquery';
-import { inject, bindable, NewInstance } from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import { inject, bindable, NewInstance } from 'aurelia-framework'; 
 import { Config, Rest } from 'aurelia-api';
-import * as Toastr from 'toastr';
-import { UserModel } from './userModel';
-import { Roles } from './roles';
-import { ValidationRules, ValidationController } from 'aurelia-validation';
-import { BootstrapFormRenderer } from '../../resources/bootstrap-form-renderer';
+import * as Toastr from 'toastr'; 
 import { I18N } from 'aurelia-i18n';
 import { DialogService } from 'aurelia-dialog';
 import { DangerModal } from './dangerModal/dangerModal';
 
-@inject(EventAggregator, Config, NewInstance.of(ValidationController), I18N, Roles, DialogService)
+@inject(Config, I18N, DialogService)
 export class Users {
-    api: Rest;
-    eventAggregator: EventAggregator;
-    isAddingUserSubscriber: any;
-    validationController: ValidationController;
-    i18n: I18N;
-    roles: any;
+    api: Rest;       
+    i18n: I18N; 
     dialogService: DialogService;
 
     @bindable filter: String;
     isFiltering: boolean;
-
-    newUserModel: UserModel;
+ 
 
     pageSize: number;
     currentPage: number;
     totalItems: number;
-    showPagination: boolean;
+    showPagination: boolean;   
 
     usersModel: any;
 
-    constructor(eventAggregator: EventAggregator, config: Config, validationController: ValidationController, i18n, Roles, dialogService: DialogService) {
-        this.eventAggregator = eventAggregator;
-        this.api = config.getEndpoint('api');
-        this.validationController = validationController;
-        this.i18n = i18n;
-        this.roles = Roles.roles;
+    constructor(  config: Config, i18n, dialogService: DialogService) {      
+        this.api = config.getEndpoint('api');    
+        this.i18n = i18n;       
         this.dialogService = dialogService;
 
         this.filter = "";
@@ -47,63 +34,10 @@ export class Users {
         this.currentPage = 0;
         this.pageSize = 10;
         this.showPagination = false;
-
-        this.newUserModel = new UserModel();
     }
 
-    attached() {
-        this.validationController.addRenderer(new BootstrapFormRenderer());
-        this.resetModel();
-        this.setupValidationRules();
+    attached() {       
         this.filterUsers();
-    }
-
-    resetModel() {
-        this.newUserModel.UserName = '';
-        this.newUserModel.DisplayName = '';
-        this.newUserModel.Email = '';
-        this.newUserModel.Password = '';
-        this.newUserModel.ConfirmPassword = '';
-        this.newUserModel.Roles = [];
-    }
-
-    setupValidationRules() {
-        this.initializeCustomValidationRules();
-        ValidationRules
-            .ensure('UserName')
-            .displayName(this.i18n.tr("addUser.userName"))
-            .required()
-            .minLength(3)
-            .maxLength(100)
-            .ensure('DisplayName')
-            .displayName(this.i18n.tr("addUser.displayName"))
-            .required()
-            .ensure('Email')
-            .displayName(this.i18n.tr("addUser.email"))
-            .required()
-            .email()
-            .ensure('Password')
-            .displayName(this.i18n.tr("addUser.password"))
-            .required()
-            .ensure('ConfirmPassword')
-            .required()
-            .satisfiesRule('matchesProperty', 'Password')
-            .on(this.newUserModel);
-    }
-
-    initializeCustomValidationRules() {
-        ValidationRules.customRule(
-            'matchesProperty',
-            (value, obj, otherPropertyName) =>
-                value === null
-                || value === undefined
-                || value === ''
-                || obj[otherPropertyName] === null
-                || obj[otherPropertyName] === undefined
-                || obj[otherPropertyName] === ''
-                || value === obj[otherPropertyName],
-            '${$displayName} must match ${$getDisplayName($config.otherPropertyName)}', otherPropertyName => ({ otherPropertyName })
-        );
     }
 
     async filterUsers() {
@@ -111,8 +45,9 @@ export class Users {
             this.isFiltering = true;
             let qry = { PageSize: this.pageSize, CurrentPage: this.currentPage, Qry: this.filter };
             this.usersModel = await this.api.find('/users', qry);
-
+           
             this.transformUsersModel(this.usersModel.Data);
+            console.log(this.usersModel);
             this.setPaginationParameters(this.usersModel);
         } catch (error) {
             Toastr.error("Failed to filter users", error);
@@ -120,12 +55,10 @@ export class Users {
         finally {
             this.isFiltering = false;
         }
-    }
+    }  
 
     transformUsersModel(users) {
-        for (let user of users) {
-            if (user.Roles.includes('admin'))
-                user.isAdmin = true;
+        for (let user of users) {           
             user.isEditing = false;
             this.initializeCopyProperty(user);
         }
@@ -135,27 +68,7 @@ export class Users {
         this.totalItems = usersModel.TotalItems;
         this.currentPage = usersModel.CurrentPage;
         this.showPagination = usersModel.TotalItems > this.pageSize;
-    }
-
-    async addUser() {
-        try {
-            var res = await this.validationController.validate();
-            if (res.valid) {
-                $(".dropdown-menu").removeClass("show");
-                var resp = await this.api.post('/users', this.newUserModel);
-                this.resetModel();
-                this.filterUsers();
-                Toastr.success(this.i18n.tr("addUser.userAdded"));
-            }
-            else {
-                Toastr.error("All fields requested");
-            }
-        } catch (error) {
-            Toastr.error("Failed to add user", error);
-        }
-        finally {
-        }
-    }
+    } 
 
     async refresh(val) {
         this.currentPage = val;
@@ -166,28 +79,28 @@ export class Users {
         user.isEditing = true;
     }
 
-    showDeleteUserModal(user) {      
+    showDeleteUserModal(user) {
         this.dialogService.open({ viewModel: DangerModal, model: user, lock: false }).whenClosed(response => {
-            if (!response.wasCancelled) {              
+            if (!response.wasCancelled) {
                 this.deleteUser(user);
-            } else {               
+            } else {
             }
         });
     }
 
-    async deleteUser(user) {      
+    async deleteUser(user) {
         try {
-            if (!this.isAdmin(user)) {
+            if (!this.isAdministrator(user)) {
                 // var resp = await this.api.request('DELETE', '/users', user);
-                var index=this.usersModel.Data.indexOf(user);
-                if(index>-1){
-                    this.usersModel.Data.splice(index,1);
+                var index = this.usersModel.Data.indexOf(user);
+                if (index > -1) {
+                    this.usersModel.Data.splice(index, 1);
                 }
-              //  this.filterUsers();
+                //  this.filterUsers();
                 Toastr.success(this.i18n.tr("editUser.userDeleted"));
             } else {
                 Toastr.error(this.i18n.tr("editUser.cannotDeleteAdmin"));
-                
+
             }
         }
         catch (error) {
@@ -197,10 +110,10 @@ export class Users {
         }
     }
 
-    isAdmin(user) {
+    isAdministrator(user) {
         return user.Email === 'admin@bookmaker.com';
     }
-  
+
     initializeCopyProperty(user: any) {
         user.copy = undefined;
         let copy = Object.assign({}, user);
@@ -211,8 +124,6 @@ export class Users {
         await this.filterUsers();
     }
 
-    detached() {
-        this.validationController.removeRenderer(new BootstrapFormRenderer());
-    }
+  
 
 }

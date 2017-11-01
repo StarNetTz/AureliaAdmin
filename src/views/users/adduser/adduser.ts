@@ -2,47 +2,56 @@ import * as $ from 'jquery';
 import { inject, bindable, NewInstance } from 'aurelia-framework';
 import { Config, Rest } from 'aurelia-api';
 import * as Toastr from 'toastr';
+import { UserModel } from '../userModel';
 import { ValidationRules, ValidationController } from 'aurelia-validation';
 import { BootstrapFormRenderer } from '../../../resources/bootstrap-form-renderer';
 import { I18N } from 'aurelia-i18n';
-import { UserModel } from '../userModel';
-import { Roles } from '../roles';
 
-
-@inject(Config, NewInstance.of(ValidationController), I18N, Roles)
-export class Edit {
-    @bindable user;
+@inject(Config, NewInstance.of(ValidationController), I18N)
+export class Adduser {
     api: Rest;
-    parent: any;
     validationController: ValidationController;
     i18n: I18N;
+
+    newUserModel: UserModel;
+    @bindable filterusers;
+
     roles: any;
 
-    constructor(config: Config, validationController: ValidationController, i18n, Roles) {
+    constructor(config: Config, validationController: ValidationController, i18n) {
         this.api = config.getEndpoint('api');
         this.validationController = validationController;
         this.i18n = i18n;
-        this.roles = Roles.roles;
+        this.newUserModel = new UserModel();
+        this.initRoles();
     }
 
     attached() {
         this.validationController.addRenderer(new BootstrapFormRenderer());
+        this.resetModel();
         this.setupValidationRules();
-        console.log(this.user);
-        this.initializeCopyProperty(this.user);
+
+    }
+
+    resetModel() {
+        this.newUserModel.Username = '';
+        this.newUserModel.DisplayName = '';
+        this.newUserModel.Email = '';
+        this.newUserModel.Password = '';
+        this.newUserModel.ConfirmPassword = '';
+        this.newUserModel.Roles = [];
     }
 
     setupValidationRules() {
-        console.log("validation rules");
         this.initializeCustomValidationRules();
         ValidationRules
-            .ensure('DisplayName')
-            .displayName(this.i18n.tr("addUser.displayName"))
+            .ensure('Username')
+            .displayName(this.i18n.tr("addUser.userName"))
             .required()
             .minLength(3)
             .maxLength(100)
-            .ensure('UserName')
-            .displayName(this.i18n.tr("addUser.userName"))
+            .ensure('DisplayName')
+            .displayName(this.i18n.tr("addUser.displayName"))
             .required()
             .ensure('Email')
             .displayName(this.i18n.tr("addUser.email"))
@@ -52,14 +61,12 @@ export class Edit {
             .displayName(this.i18n.tr("addUser.password"))
             .required()
             .ensure('ConfirmPassword')
-            .displayName(this.i18n.tr("addUser.password"))
             .required()
             .satisfiesRule('matchesProperty', 'Password')
-            .on(this.user);
+            .on(this.newUserModel);
     }
 
     initializeCustomValidationRules() {
-        console.log("custom rule");
         ValidationRules.customRule(
             'matchesProperty',
             (value, obj, otherPropertyName) =>
@@ -74,43 +81,28 @@ export class Edit {
         );
     }
 
-    async saveChanges(user) {
+    async initRoles() {
+        this.roles = await this.api.find('/roles');
+        console.log();
+    }
+
+    async addUser() {       
         try {
-            if (user.Roles.includes('admin')) {
-                user.isAdmin = true;
+            var res = await this.validationController.validate();
+            if (res.valid) {
+                $(".dropdown-menu").removeClass("show");
+                this.resetModel();
+                this.filterusers();
+                Toastr.success(this.i18n.tr("addUser.userAdded"));
             }
             else {
-                user.isAdmin = false;
+                Toastr.error("All fields requested");
             }
-            var resp = await this.api.request('PUT', '/users', user);
-            user.isEditing = false;
-            Toastr.success(this.i18n.tr("editUser.userChanged"));
-        }
-        catch (error) {
-            Toastr.error("Failed to edit user", error);
+        } catch (error) {
+            Toastr.error("Failed to add user", error);
         }
         finally {
         }
-
-
     }
-
-    initializeCopyProperty(user: any) {
-        user.copy = undefined;
-        let copy = Object.assign({}, user);
-        user.copy = copy;
-    }
-
-    cancel(user) {
-        let original = user.copy;
-        this.initializeCopyProperty(original);
-        user = Object.assign(user, original);
-        user.isEditing=false;
-    }
-
-    detached() {
-        this.validationController.removeRenderer(new BootstrapFormRenderer());
-    }
-
 
 }

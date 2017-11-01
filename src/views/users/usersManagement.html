@@ -1,6 +1,6 @@
 <template>
   <require from="../../components/pagination/pagination"></require>
-  <require from="./edit/edit"></require>
+  <require from="./edituser/edituser"></require>
   <div class="container-fluid mt-2 mb-2">
     <div class="row">
       <div class="col-12">
@@ -10,7 +10,7 @@
     </div>
     <div class="row d-flex justify-content-around">
       <div repeat.for="user of usersModel.Data" class="p-1">
-        <edit if.bind="user.isEditing" user.bind="user"></edit>       
+        <edituser if.bind="user.isEditing" user.bind="user"></edituser>       
         <compose if.bind="!user.isEditing" view="./userView.html"></compose>
       </div>
     </div>
