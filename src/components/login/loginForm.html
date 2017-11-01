@@ -13,7 +13,7 @@
             <input type="password" class="form-control" id="inlineFormInputGroupUsername2" t="[placeholder]login.password" value.bind="password"
                 disabled.bind="isBusy">
         </div>
-        <button disabled.bind="isBusy" type="submit" class="btn btn-primary" click.delegate="logIn()">
+        <button disabled.bind="isBusy" type="submit" class="btn btn-outline-warning" click.delegate="logIn()">
             <span t="login.login" show.bind="!isBusy"></span>
             <i show.bind="isBusy" class="fa fa-cog fa-spin fa-fw"></i>
         </button>
