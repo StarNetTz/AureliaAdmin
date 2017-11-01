@@ -1,9 +1,9 @@
 <template>
     <nav aria-label="Page navigation example">
-        <ul class="pagination pagination-sm justify-content-center">
-          <li class="page-item"  click.delegate="onRefresh(prev)"><a class="btn-outline-prev" href="#">Previous</a></li>
-          <li repeat.for="page of pages" click.delegate="onRefresh(page.value)"  class="${page.value == currentPage ? 'page-item active' : 'page-item'}"><a class="btn-outline-item">${page.text}</a></li>
-          <li class="page-item" click.delegate="onRefresh(next)"><a class="btn-outline-next" href="#">Next</a></li>
+        <ul class="pagination justify-content-center">
+          <li class="page-item"  click.delegate="onRefresh(prev)"><a class="page-link" href="#">Previous</a></li>
+          <li repeat.for="page of pages" click.delegate="onRefresh(page.value)"  class="${page.value == currentPage ? 'page-item active' : 'page-item'}"><a class="page-link">${page.text}</a></li>
+          <li class="page-item" click.delegate="onRefresh(next)"><a class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
 </template>

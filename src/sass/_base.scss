@@ -3,7 +3,16 @@
     height: auto;
 }
 
-ux-dialog>ux-dialog-body {
+.deleteUserHeader {
+    background-color: $primary-color-one;
+    color: #fff;
+}
+
+.deleteUserHeader .dialog-close {
+    color: #fff;
+}
+
+.deleteUserTitle {
     text-align: center;
     text-transform: uppercase;
 }
@@ -15,106 +24,95 @@ ux-dialog>ux-dialog-body {
     background: linear-gradient(to right, #9e0236 0%, #510035 100%);
 }
 
+.border-active {
+    border-color: $primary-color-two;
+    .card-header {
+        background-color: $primary-color-two;
+    }
+}
+
 .input-group-addon {
-    border-color: #f9c618;
+    border-color: #ffffff;
     background: transparent;
-    color: #f9c618;
+    color: #f1f1f1;
     &:hover {
         background-color: #fab638;
         color: #fff;
-        border-color: #fab638;
+        border-color: #510035;
     }
 }
 
 .form-control {
-    color: #f9c618;
-    border-color: #f9c618;
-    background: transparent;
+    color: #616161;
+    border-color: #d4d4d4;
     &:hover {
-        background-color: #ffffff;
+        background-color: #e7e7e7;
         color: rgb(43, 43, 43);
-        border-color: #fab638;
+        border-color: #616161;
         outline: none;
     }
 }
 
 .card-header {
     background: $primary-color-one;
-    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
     color: #fff;
+    border-color: #616161;
 }
 
-.btn-outline-prev {
-    position: relative;
-    top: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid #f9c618;
-    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
-    color: #f9c618;
-    border-radius: 0.2rem 0 0 0.2rem;
-    border-right: none;
+.page-item.active .page-link {
+    z-index: 2;
+    color: #fff;
+    background-color: #616161;
+    border-color: #616161;
+}
+
+.page-link {
+    color: #616161;
+    &:focus,
     &:hover {
-        background: #fab638;
-        color: #fff;
-        border-color: #fab638;
+        color: #616161;
         text-decoration: none;
-    }
-    &:active {
-        background: #fab638;
-        color: #fff;
-        border-color: #fab638;
-        outline: none;
+        background-color: #e9ecef;
+        border-color: #ddd;
     }
 }
 
-.btn-outline-next {
-    position: relative;
-    top: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid #f9c618;
-    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
-    color: #f9c618;
-    border-radius: 0 0.2rem 0.2rem 0;
-    border-left: none;
+.btn-outline-warning {
+    color: #fff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #fff;
+}
+
+.btn-primary {
+    z-index: 2;
+    color: #fff;
+    background-color: #616161;
+    border-color: #616161;
+    &:focus,
     &:hover {
-        background: #fab638;
-        color: #fff;
-        border-color: #fab638;
+        color: #616161;
         text-decoration: none;
-    }
-    &:active {
-        background: #fab638;
-        color: #fff;
-        border-color: #fab638;
-        outline: none;
+        background-color: #e9ecef;
+        border-color: #ddd;
     }
 }
 
-.btn-outline-item {
-    position: relative;
-    top: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid #f9c618;
-    border-right: none;
-    border-left: none;
-    background: transparent;
-    color: #f9c618;
-    &:hover {
-        background: #fab638;
-        color: #fff;
-        border-color: #fab638;
-        text-decoration: none;
-    }
-    &:active {
-        background: #fab638;
-        color: #fff;
-        border-color: #fab638;
-        outline: none;
-    }
+.btn-danger {
+    color: #fff;
+    background-color: $primary-color-one;
+    border-color: $primary-color-one;
+}
+
+.container-fluid {
+    height: 100%;
+    margin-right: auto;
+    margin-left: auto
+}
+
+.userManagmentBackground {
+    background: #f6f8f9;
+    background: -moz-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
+    background: -webkit-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
+    background: linear-gradient(to bottom, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
 }
