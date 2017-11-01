@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid mt-5">
+  <div class="container-fluid mt-2">
     <div class="row">
-      <form class="form-inline ml-4">
-        <input class="form-control mr-sm-1" type="text" value.bind="filter & debounce:400" t="[placeholder]userManagement.searchUsers"
+      <form class="form-inline ml-3">
+        <input class="form-control mr-sm-2" type="text" value.bind="filter & debounce:400" t="[placeholder]userManagement.searchUsers"
           id="top-search">
       </form>
       <div class="dropdown">
@@ -15,6 +15,7 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <compose containerless view="./usersManagement.html"></compose>
     </div>
