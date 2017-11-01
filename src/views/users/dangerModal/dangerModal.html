@@ -1,13 +1,15 @@
 <template>
-        <ux-dialog>
-           <ux-dialog-body>
-              <h2>${user.DisplayName}</h2>
+        <ux-dialog class="deleteUserModal">
+            <ux-dialog-header class="deleteUserHeader">
+                <h5 t="editUser.deleteMessage"></h5>              
+             </ux-dialog-header>	
+           <ux-dialog-body class="deleteUserTitle">
+              <h5><span>${user.DisplayName}</span></h5>
            </ux-dialog-body>
      
            <ux-dialog-footer>
-              <button click.trigger = "controller.cancel()" t="cancel"></button>
-              <button click.trigger = "controller.ok(message)" t="editUser.deleteUser"></button>
+              <button class="btn btn-secondary" click.trigger = "controller.cancel()" t="cancel"></button>
+              <button class="btn btn-danger" click.trigger = "controller.ok(message)" t="editUser.deleteUser"></button>
            </ux-dialog-footer>	
         </ux-dialog>	
      </template>
-    

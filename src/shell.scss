@@ -1,7 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~toastr/toastr.scss";
 @import "./sass/_variables.scss";
-
+@import "./sass/_general.scss";
+@import "./sass/_base.scss";
 .has-error {
     color: #a94442;
 }

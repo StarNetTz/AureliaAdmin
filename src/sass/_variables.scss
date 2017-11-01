@@ -1,0 +1,20 @@
+/*
+ * Typography
+ * ======================================================================== */
+
+$font-size-initial: 14px; // reset default browser value from 16px to 13px
+$font-size-base: 1rem !default;
+$font-size-lg: 1.25rem !default;
+$font-size-sm: 0.875rem !default;
+$font-size-larger: 1.1rem;
+$font-size-mini: 0.9rem;
+$font-size-index: 0.7rem;
+$small-font-size: 85% !default;
+$font-family-base: 'Open Sans',
+sans-serif;
+// Color system
+//
+$primary-color-one: #9E0236;
+$primary-color-two: #510035;
+$font-weight-thin: 300 !default;
+$font-weight-base: $font-weight-thin !default;
