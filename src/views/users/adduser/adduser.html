@@ -22,10 +22,10 @@
               t="[placeholder]addUser.confirmPassword">
           </div>
           <div class="form-group">
-            <label repeat.for="role of roles">
-              <input type="checkbox" model.bind="role" checked.bind="newUserModel.Roles">
+            <label repeat.for="role of newUserModel.Roles">
+              <input type="checkbox" model.bind="role" checked.bind="role.IsMemberOf">
               <span class="mr-2">${role.Name}</span>
-            </label>
+            </label>           
           </div>
           <button type="submit" class="btn btn-danger" click.delegate="addUser()">
             <span t="addUser.addUser"></span>

@@ -9,17 +9,17 @@ import {AuthConfig} from './authConfig';
 import * as Toastr from 'toastr';
 
 Toastr.options = {
-  "closeButton": true,
+  "closeButton": false,
   "debug": false,
   "newestOnTop": false,
   "progressBar": false,
-  "positionClass": "toast-top-center",
+  "positionClass": "toast-top-right",
   "preventDuplicates": false,
   "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "700",
-  "timeOut": "2000",
-  "extendedTimeOut": "700",
+  "showDuration": "500",
+  "hideDuration": "1000",
+  "timeOut": "3000",
+  "extendedTimeOut": "1000",
   "showEasing": "swing",
   "hideEasing": "linear",
   "showMethod": "fadeIn",
