@@ -5,7 +5,13 @@ export class UserModel {
   Password:String;
   Email:String;
   ConfirmPassword:String;
-  Roles:Array<String>;
+  Roles:Array<Role>;
   isActive: Boolean;
   IsAdmin:Boolean;
+}
+
+export class Role{
+  Id: String;
+  Name: String;
+  IsMemberOf: Boolean;
 }
