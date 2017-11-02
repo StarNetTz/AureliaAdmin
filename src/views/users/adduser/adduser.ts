@@ -23,14 +23,17 @@ export class Adduser {
         this.validationController = validationController;
         this.i18n = i18n;
         this.newUserModel = new UserModel();
-        this.initRoles();
     }
 
     attached() {
         this.validationController.addRenderer(new BootstrapFormRenderer());
-        this.resetModel();
+        this.initRolesAndNewUserModel();
         this.setupValidationRules();
+    }
 
+    async initRolesAndNewUserModel() {
+        await this.initRoles();
+        this.resetModel();
     }
 
     resetModel() {
@@ -40,6 +43,9 @@ export class Adduser {
         this.newUserModel.Password = '';
         this.newUserModel.ConfirmPassword = '';
         this.newUserModel.Roles = [];
+        for (let role of this.roles) {
+            this.newUserModel.Roles.push({ Name: role.Name, Id: role.Id, IsMemberOf: false });
+        }
     }
 
     setupValidationRules() {
@@ -86,14 +92,12 @@ export class Adduser {
         console.log();
     }
 
-    async addUser() {       
+    async addUser() {
+        console.log(this.newUserModel);
         try {
             var res = await this.validationController.validate();
             if (res.valid) {
                 $(".dropdown-menu").removeClass("show");
-                // for (let role:any={} of this.newUserModel.Roles) {
-                //     console.log(role);
-                // }
                 var resp = await this.api.post('/users', this.newUserModel);
                 this.resetModel();
                 this.filterusers();
@@ -104,6 +108,7 @@ export class Adduser {
             }
         } catch (error) {
             Toastr.error("Failed to add user", error);
+            console.log(error);
         }
         finally {
         }

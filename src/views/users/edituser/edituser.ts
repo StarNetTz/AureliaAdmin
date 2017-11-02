@@ -7,8 +7,6 @@ import { BootstrapFormRenderer } from '../../../resources/bootstrap-form-rendere
 import { I18N } from 'aurelia-i18n';
 import { UserModel } from '../userModel';
 
-
-
 @inject(Config, NewInstance.of(ValidationController), I18N)
 export class Edituser {
 
@@ -16,9 +14,7 @@ export class Edituser {
     api: Rest;
     parent: any;
     validationController: ValidationController;
-    i18n: I18N;
-
-  
+    i18n: I18N;  
 
     constructor(config: Config, validationController: ValidationController, i18n) {
         this.api = config.getEndpoint('api');
@@ -53,8 +49,7 @@ export class Edituser {
             .minLength(4)          
             .ensure('ConfirmPassword')
             .displayName(this.i18n.tr("addUser.confirmPassword"))                  
-            .satisfiesRule('matchesProperty', 'Password')        
-            .required()
+            .satisfiesRule('matchesProperty', 'Password') 
             .when(Password => Password!==null)                 
             .on(this.user);
     }
@@ -62,20 +57,15 @@ export class Edituser {
     initializeCustomValidationRules() {     
         ValidationRules.customRule(
             'matchesProperty',
-            (value, obj, otherPropertyName) =>
-                value === null
-                || value === undefined
-                || value === ''
-                || obj[otherPropertyName] === null
-                || obj[otherPropertyName] === undefined
-                || obj[otherPropertyName] === ''
-                || value === obj[otherPropertyName],
+            (value, obj, otherPropertyName) => { 
+                if (obj[otherPropertyName] === undefined || obj[otherPropertyName] === null || obj[otherPropertyName] === '')
+                return true;
+                return value === obj[otherPropertyName]; 
+            },
             '${$displayName} must match ${$getDisplayName($config.otherPropertyName)}', otherPropertyName => ({ otherPropertyName })
-        );
-       
+        );       
     }
 
-    
     async saveChanges(user) {
         try {
             if (user.Roles[0].IsMemberOf===true) {
@@ -91,7 +81,13 @@ export class Edituser {
                 Toastr.success(this.i18n.tr("editUser.userChanged"));
             }
             else {
-                Toastr.error("Popuniti sva polja");
+               // Toastr.error("Popuniti sva polja");
+               Toastr.success("<br /><br /><button type='button' class='btn clear'>Yes</button>",'delete item?',
+               {
+                   closeButton: false,
+                   allowHtml: true
+                   
+               })
             }
         }
         catch (error) {

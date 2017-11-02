@@ -4,12 +4,10 @@
           <div>${user.DisplayName}</div>
           <button type="button" click.delegate="editUser(user)" class="btn btn-outline-warning btn-sm ml-auto mr-1">  <i class="fa fa-cog" ></i></button>
           <button type="button" click.delegate="showDeleteUserModal(user)" class="btn btn-outline-warning btn-sm">  <i class="fa fa-trash-o"></i></button>
-
         </div>
         <div class="card-body">
           <h4 class="card-title">${user.Username}</h4>
-          <p class="card-text">${user.Email}</p>
-        
+          <p class="card-text">${user.Email}</p>        
         </div>
       </div>
 </template>

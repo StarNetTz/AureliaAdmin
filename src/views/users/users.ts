@@ -46,8 +46,7 @@ export class Users {
             let qry = { PageSize: this.pageSize, CurrentPage: this.currentPage, Qry: this.filter };
             this.usersModel = await this.api.find('/users', qry);
            
-            this.transformUsersModel(this.usersModel.Data);
-            console.log(this.usersModel);
+            this.transformUsersModel(this.usersModel.Data);           
             this.setPaginationParameters(this.usersModel);
         } catch (error) {
             Toastr.error("Failed to filter users", error);
