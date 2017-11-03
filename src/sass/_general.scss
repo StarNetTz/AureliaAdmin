@@ -21,6 +21,9 @@ a {
     border: none;
     color: white;
     cursor: pointer;
+    &:hover {
+        color: #afafaf;
+    }
 }
 
 button {

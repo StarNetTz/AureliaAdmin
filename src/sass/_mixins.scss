@@ -1,0 +1,13 @@
+@mixin background-gradiant-top-botom($color-one, $color-two) {
+    background: $color-one;
+    background: -moz-linear-gradient(top, $color-one 0%, $color-two 100%);
+    background: -webkit-linear-gradient(top, $color-one 0%, $color-two 100%);
+    background: linear-gradient(to bottom, $color-one 0%, $color-two 100%);
+}
+
+@mixin background-gradiant-left-right($color-one, $color-two) {
+    background: $color-one;
+    background: -moz-linear-gradient(left, $color-one 0%, $color-two 100%);
+    background: -webkit-linear-gradient(left, $color-one 0%, $color-two 100%);
+    background: linear-gradient(to right, $color-one 0%, $color-two 100%);
+}

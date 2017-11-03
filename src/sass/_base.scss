@@ -1,3 +1,10 @@
+@import "variables";
+@import "general";
+@import "mixins";
+.has-error {
+    color: #a94442;
+}
+
 .deleteUserModal {
     width: 30rem;
     height: auto;
@@ -18,12 +25,10 @@
 }
 
 .navbar-custom {
-    background: $primary-color-one;
-    background: -moz-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: -webkit-linear-gradient(left, #9e0236 0%, #510035 100%);
-    background: linear-gradient(to right, #9e0236 0%, #510035 100%);
+    @include background-gradiant-left-right($primary-color-one, $primary-color-two);
 }
 
+//User manager change color when is admin
 .border-active {
     border-color: $primary-color-two;
     .card-header {
@@ -35,11 +40,6 @@
     border-color: #ffffff;
     background: transparent;
     color: #f1f1f1;
-    &:hover {
-        background-color: #fab638;
-        color: #fff;
-        border-color: #510035;
-    }
 }
 
 .form-control {
@@ -47,7 +47,7 @@
     border-color: #d4d4d4;
     &:hover {
         background-color: #e7e7e7;
-        color: rgb(43, 43, 43);
+        color: rgb(31, 31, 31);
         border-color: #616161;
         outline: none;
     }
@@ -111,8 +111,5 @@
 }
 
 .userManagmentBackground {
-    background: #eeeeee;
-    background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%);
-    background: -webkit-linear-gradient(top, #eeeeee 0%, #cccccc 100%);
-    background: linear-gradient(to bottom, #eeeeee 0%, #cccccc 100%);
+    @include background-gradiant-top-botom(#eeeeee, #cccccc);
 }
