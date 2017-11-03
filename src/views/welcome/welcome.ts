@@ -39,11 +39,4 @@ export class Welcome {
   showErrorNotification() {
     Toastr.error('Damn!', 'WTF');
   }
-
-  async search(){
-    let qry = { PageSize: 5, CurrentPage: 0, Qry: "a" };
-    var x = await this.api.find('/search', qry);
-    console.log(x);
-  }
-
 }

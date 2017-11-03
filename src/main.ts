@@ -58,7 +58,7 @@ export function configure(aurelia: Aurelia) {
       });
     })
     .plugin(PLATFORM.moduleName('aurelia-api'), config => {
-      config.registerEndpoint('api', 'http://footballapi.selfip.com');
+      config.registerEndpoint('api', 'http://authstarnet.webhop.net');
       config.registerEndpoint('auth', 'http://authstarnet.webhop.net');
     })
     .plugin(PLATFORM.moduleName('aurelia-authentication'), baseConfig => {
