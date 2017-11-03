@@ -55,8 +55,8 @@ export function configure(aurelia: Aurelia) {
       });
     })
     .plugin(PLATFORM.moduleName('aurelia-api'), config => {
-      config.registerEndpoint('api', 'http://bookmakerapi.dyndns-ip.com');
-      config.registerEndpoint('auth', 'http://bookmakerapi.dyndns-ip.com');
+      config.registerEndpoint('api', 'http://footballapi.selfip.com');
+      config.registerEndpoint('auth', 'http://authstarnet.webhop.net');
     })
     .plugin(PLATFORM.moduleName('aurelia-authentication'), baseConfig => {
       baseConfig.configure(AuthConfig);

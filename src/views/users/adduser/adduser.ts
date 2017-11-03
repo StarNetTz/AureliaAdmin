@@ -19,7 +19,7 @@ export class Adduser {
     roles: any;
 
     constructor(config: Config, validationController: ValidationController, i18n) {
-        this.api = config.getEndpoint('api');
+        this.api = config.getEndpoint('auth');
         this.validationController = validationController;
         this.i18n = i18n;
         this.newUserModel = new UserModel();

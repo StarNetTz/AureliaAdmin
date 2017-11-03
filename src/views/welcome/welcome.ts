@@ -3,15 +3,18 @@ import { inject } from 'aurelia-framework';
 import {DialogService} from 'aurelia-dialog';
 import {Modal} from './modal/modal';
 import {I18N} from 'aurelia-i18n';
+import { Config, Rest } from 'aurelia-api';
 
-@inject(DialogService, I18N)
+@inject(DialogService, I18N, Config)
 export class Welcome {
   dialogService : DialogService;
   i18n:I18N;
+  api: Rest;   
 
-  constructor(dialogService : DialogService, i18n:I18N) {
+  constructor(dialogService : DialogService, i18n:I18N, config: Config) {
     this.dialogService = dialogService;
     this.i18n = i18n;
+    this.api = config.getEndpoint('api');    
   }
   
   showModal(){
@@ -35,6 +38,12 @@ export class Welcome {
 
   showErrorNotification() {
     Toastr.error('Damn!', 'WTF');
+  }
+
+  async search(){
+    let qry = { PageSize: 5, CurrentPage: 0, Qry: "a" };
+    var x = await this.api.find('/search', qry);
+    console.log(x);
   }
 
 }

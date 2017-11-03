@@ -17,7 +17,7 @@ export class Edituser {
     i18n: I18N;  
 
     constructor(config: Config, validationController: ValidationController, i18n) {
-        this.api = config.getEndpoint('api');
+        this.api = config.getEndpoint('auth');
         this.validationController = validationController;
         this.i18n = i18n;      
     }

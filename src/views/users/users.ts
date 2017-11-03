@@ -24,7 +24,7 @@ export class Users {
     usersModel: any;
 
     constructor(  config: Config, i18n, dialogService: DialogService) {      
-        this.api = config.getEndpoint('api');    
+        this.api = config.getEndpoint('auth');    
         this.i18n = i18n;       
         this.dialogService = dialogService;
 
