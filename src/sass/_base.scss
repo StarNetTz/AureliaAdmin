@@ -2,7 +2,7 @@
 @import "general";
 @import "mixins";
 .has-error {
-    color: #a94442;
+    color: $color-danger;
 }
 
 .deleteUserModal {
@@ -12,11 +12,13 @@
 
 .deleteUserHeader {
     background-color: $primary-color-one;
-    color: #fff;
+    color: $white;
 }
 
-.deleteUserHeader .dialog-close {
-    color: #fff;
+.deleteUserHeader {
+    .dialog-close {
+        color: $white;
+    }
 }
 
 .deleteUserTitle {
@@ -37,71 +39,93 @@
 }
 
 .input-group-addon {
-    border-color: #ffffff;
+    border-color: $white;
     background: transparent;
-    color: #f1f1f1;
+    color: $gray-100;
 }
 
 .form-control {
-    color: #616161;
-    border-color: #d4d4d4;
+    color: $gray-700;
+    border-color: $gray-400;
     &:hover {
-        background-color: #e7e7e7;
-        color: rgb(31, 31, 31);
-        border-color: #616161;
+        background-color: $gray-400;
+        color: $black;
+        border-color: $gray-700;
         outline: none;
     }
 }
 
 .card-header {
     background: $primary-color-one;
-    color: #fff;
-    border-color: #616161;
+    color: $white;
+    border-color: $gray-700;
 }
 
 .page-item.active .page-link {
     z-index: 2;
-    color: #fff;
-    background-color: #616161;
-    border-color: #616161;
+    color: $white;
+    background-color: $gray-700;
+    border-color: $gray-700;
 }
 
 .page-link {
-    color: #616161;
+    color: $gray-700;
     &:focus,
     &:hover {
-        color: #616161;
+        color: $gray-700;
         text-decoration: none;
-        background-color: #e9ecef;
-        border-color: #ddd;
+        background-color: $gray-300;
+        border-color: $gray-300;
     }
 }
 
 .btn-outline-warning {
-    color: #fff;
+    color: $white;
     background-color: transparent;
     background-image: none;
-    border-color: #fff;
+    border-color: $white;
 }
 
 .btn-primary {
-    z-index: 2;
-    color: #fff;
-    background-color: #616161;
-    border-color: #616161;
+    color: $white;
+    background-color: $primary-color-one;
+    border-color: $primary-color-one;
     &:focus,
     &:hover {
-        color: #616161;
+        box-shadow: none;
         text-decoration: none;
-        background-color: #e9ecef;
-        border-color: #ddd;
+        color: $white;
+        background-color: $primary-color-two;
+        border-color: $primary-color-two;
     }
 }
 
-.btn-danger {
-    color: #fff;
+.btn-secondary {
+    z-index: 2;
+    color: $white;
+    background-color: $gray-700;
+    border-color: $gray-700;
+    &:focus,
+    &:hover {
+        text-decoration: none;
+        color: $white;
+        background-color: $primary-color-two;
+        border-color: $primary-color-two;
+    }
+}
+
+#dropdownMenuButton {
+    color: $white;
     background-color: $primary-color-one;
     border-color: $primary-color-one;
+    &:active,
+    &:focus,
+    &:hover {
+        text-decoration: none;
+        color: $white;
+        background-color: $primary-color-two;
+        border-color: $primary-color-two;
+    }
 }
 
 .container-fluid {
@@ -111,5 +135,5 @@
 }
 
 .userManagmentBackground {
-    @include background-gradiant-top-botom(#eeeeee, #cccccc);
+    @include background-gradiant-top-botom($gray-100, $gray-200);
 }

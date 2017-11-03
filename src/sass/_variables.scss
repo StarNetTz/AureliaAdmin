@@ -14,7 +14,20 @@ $font-family-base: 'Open Sans',
 sans-serif;
 // Color system
 //
-$primary-color-one: #9E0236;
-$primary-color-two: #510035;
-$font-weight-thin: 300 !default;
-$font-weight-base: $font-weight-thin !default;
+$white: #fff !default;
+$gray-100: #f5f5f5 !default;
+$gray-200: #eeeeee !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #555 !default;
+$gray-800: #343434 !default;
+$gray-900: #242424 !default;
+$black: #000 !default;
+$primary-color-one: #9E0236 !default;
+$primary-color-two: #510035 !default;
+$color-danger: #d63d4a !default;
+$green: #33a945;
+$yellow: #f9c618;
+$cyan: #379eb6;
