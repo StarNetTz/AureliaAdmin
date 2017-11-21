@@ -2,6 +2,20 @@
     "AppTitle": "Admin kostur",
     "ok": "Ok",
     "cancel": "Otkaži",
+    "errorMessages": {
+        "default": "Neispravan podatak: ${$displayName}.",
+        "required": "Nepohodan podatak: ${$displayName}.",
+        "matches": "Nevažeći format: ${$displayName}",
+        "email": "Nevažeći format email adrese: ${$displayName}",
+        "minLength": "Minimalna dužina podatka ${$displayName} je  ${$config.length} karakter${$config.length === 1 ? '' : 'a'}.",
+        "maxLength": "Maksimalna dužina podatka ${$displayName} je  ${$config.length} karakter${$config.length === 1 ? '' : 'a'}.",
+        "minItems": "Minimalan broj stavki podatka ${$displayName} je ${$config.count}.",
+        "maxItems": "Maksimalan broj stavki podatka ${$displayName} je ${$config.count}.",
+        "equals": "${$displayName}  mora biti ${$config.expectedValue}.",
+        "noLeadingOrTrailingWhitespaceAllowed": "Prazni karakteri nisu dozvoljeni na početku ili kraju podatka",
+        "noLeadingZeroAllowed": "Nije dozvoljena nula na početku unosa",
+        "seasonYearFormat":"Godina treba biti u formatu GGGG ili GGGG-GGGG"
+    },
     "topNavBar": {
         "welcome": "Dobrodošli",
         "dashboard": "Kontrolna tabla",

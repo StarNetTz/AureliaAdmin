@@ -7,6 +7,10 @@ import * as Bluebird from 'bluebird';
 import Backend from 'i18next-xhr-backend';
 import {AuthConfig} from './authConfig';
 import * as Toastr from 'toastr';
+import { ValidationMessageProvider, ValidationController } from 'aurelia-validation';
+import { I18N } from 'aurelia-i18n';
+import { Container } from 'aurelia-dependency-injection';
+
 
 Toastr.options = {
   "closeButton": false,
@@ -25,7 +29,6 @@ Toastr.options = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 }
-
 
 // remove out if you don't want a Promise polyfill (remove also from webpack.config.js)
 Bluebird.config({ warnings: { wForgottenReturn: false } });
@@ -77,5 +80,19 @@ export function configure(aurelia: Aurelia) {
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
   }
 
-  aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('shell')));
+  aurelia.start().then(() => {
+    localizeValidation(Container.instance.get(I18N));
+    aurelia.setRoot(PLATFORM.moduleName('shell'))
+  });
+}
+
+function localizeValidation(i18n) {
+  ValidationMessageProvider.prototype.getMessage = function (key) {
+    const translation = i18n.tr(`errorMessages.${key}`);
+    return this.parser.parse(translation);
+  };
+
+  ValidationMessageProvider.prototype.getDisplayName = function (propertyName) {
+    return i18n.tr(propertyName);
+  };
 }

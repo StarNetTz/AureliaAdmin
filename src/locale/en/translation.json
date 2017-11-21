@@ -2,6 +2,20 @@
     "AppTitle": "Admin skeleton",
     "ok": "Ok",
     "cancel": "Cancel",
+    "errorMessages": {
+        "default": "${$displayName} is invalid.",
+        "required": "${$displayName} is required.",
+        "matches": "${$displayName} is not correctly formatted.",
+        "email": "${$displayName} is not a valid email.",
+        "minLength": "${$displayName} must be at least ${$config.length} character${$config.length === 1 ? '' : 's'}.",
+        "maxLength": "${$displayName} cannot be longer than ${$config.length} character${$config.length === 1 ? '' : 's'}.",
+        "minItems": "${$displayName} must contain at least ${$config.count} item${$config.count === 1 ? '' : 's'}.",
+        "maxItems": "${$displayName} more than ${$config.count} item${$config.count === 1 ? '' : 's'}.",
+        "equals": "${$displayName}  must be ${$config.expectedValue}.",
+        "noLeadingOrTrailingWhitespaceAllowed": "Leading or trailing white spaces are not allowed",
+        "noLeadingZeroAllowed": "Leading zero is not allowed",
+         "seasonYearFormat":"Year format should be YYYY or YYYY-YYYY"
+    },
     "topNavBar": {
         "welcome": "Welcome",
         "dashboard": "Dashboard",
