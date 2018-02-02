@@ -36,17 +36,21 @@ export class Adduser {
         this.resetModel();
     }
 
-    resetModel() {
-        this.newUserModel.Username = '';
-        this.newUserModel.DisplayName = '';
-        this.newUserModel.Email = '';
-        this.newUserModel.Password = '';
-        this.newUserModel.ConfirmPassword = '';
-        this.newUserModel.Roles = [];
-        for (let role of this.roles) {
-            this.newUserModel.Roles.push({ Name: role.Name, Id: role.Id, IsMemberOf: false });
-        }
-    }
+      async initRoles() {
+        this.roles = await this.api.find('/roles');
+      }
+
+      resetModel() {
+          this.newUserModel.Username = '';
+          this.newUserModel.DisplayName = '';
+          this.newUserModel.Email = '';
+          this.newUserModel.Password = '';
+          this.newUserModel.ConfirmPassword = '';
+          this.newUserModel.Roles = [];
+          for (let role of this.roles) {
+              this.newUserModel.Roles.push({ Name: role.Name, Id: role.Id, IsMemberOf: false });
+          }
+      }
 
     setupValidationRules() {
         this.initializeCustomValidationRules();
@@ -72,28 +76,22 @@ export class Adduser {
             .on(this.newUserModel);
     }
 
-    initializeCustomValidationRules() {
-        ValidationRules.customRule(
-            'matchesProperty',
-            (value, obj, otherPropertyName) =>
-                value === null
-                || value === undefined
-                || value === ''
-                || obj[otherPropertyName] === null
-                || obj[otherPropertyName] === undefined
-                || obj[otherPropertyName] === ''
-                || value === obj[otherPropertyName],
-            '${$displayName} must match ${$getDisplayName($config.otherPropertyName)}', otherPropertyName => ({ otherPropertyName })
-        );
-    }
-
-    async initRoles() {
-        this.roles = await this.api.find('/roles');
-        console.log();
-    }
+      initializeCustomValidationRules() {
+          ValidationRules.customRule(
+              'matchesProperty',
+              (value, obj, otherPropertyName) =>
+                  value === null
+                  || value === undefined
+                  || value === ''
+                  || obj[otherPropertyName] === null
+                  || obj[otherPropertyName] === undefined
+                  || obj[otherPropertyName] === ''
+                  || value === obj[otherPropertyName],
+              '${$displayName} must match ${$getDisplayName($config.otherPropertyName)}', otherPropertyName => ({ otherPropertyName })
+          );
+      }
 
     async addUser() {
-        console.log(this.newUserModel);
         try {
             var res = await this.validationController.validate();
             if (res.valid) {
@@ -108,10 +106,8 @@ export class Adduser {
             }
         } catch (error) {
             Toastr.error("Failed to add user", error);
-            console.log(error);
         }
         finally {
         }
     }
-
 }

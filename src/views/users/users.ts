@@ -45,7 +45,6 @@ export class Users {
             this.isFiltering = true;
             let qry = { PageSize: this.pageSize, CurrentPage: this.currentPage, Qry: this.filter };
             this.usersModel = await this.api.find('/users', qry);
-           
             this.transformUsersModel(this.usersModel.Data);           
             this.setPaginationParameters(this.usersModel);
         } catch (error) {
@@ -78,41 +77,6 @@ export class Users {
         user.isEditing = true;
     }
 
-    showDeleteUserModal(user) {
-        this.dialogService.open({ viewModel: DangerModal, model: user, lock: false }).whenClosed(response => {
-            if (!response.wasCancelled) {
-                this.deleteUser(user);
-            } else {
-            }
-        });
-    }
-
-    async deleteUser(user) {
-        try {
-            if (!this.isAdministrator(user)) {
-                // var resp = await this.api.request('DELETE', '/users', user);
-                var index = this.usersModel.Data.indexOf(user);
-                if (index > -1) {
-                    this.usersModel.Data.splice(index, 1);
-                }
-                //  this.filterUsers();
-                Toastr.success(this.i18n.tr("editUser.userDeleted"));
-            } else {
-                Toastr.error(this.i18n.tr("editUser.cannotDeleteAdmin"));
-
-            }
-        }
-        catch (error) {
-            Toastr.error("Failed to delete user", error);
-        }
-        finally {
-        }
-    }
-
-    isAdministrator(user) {
-        return user.Email === 'admin@bookmaker.com';
-    }
-
     initializeCopyProperty(user: any) {
         user.copy = undefined;
         let copy = Object.assign({}, user);
@@ -122,7 +86,4 @@ export class Users {
     async filterChanged() {
         await this.filterUsers();
     }
-
-  
-
 }

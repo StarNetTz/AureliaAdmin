@@ -1,7 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { ValidationControllerFactory, ValidationRules, ValidationController } from 'aurelia-validation';
 
-
 @inject(ValidationControllerFactory)
 export class Dashboard {
   controller:ValidationController;

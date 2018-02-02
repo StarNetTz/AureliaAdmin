@@ -1,24 +1,24 @@
 <template>
         <form class="px-4 py-3">
-          <label for="newUser_Username" t="addUser.userName"></label>
+          <label t="addUser.userName"></label>
           <div class="form-group">
-            <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.Username & validate" t="[placeholder]addUser.userName">
+            <input type="text" class="form-control" value.bind="newUserModel.Username & validate" t="[placeholder]addUser.userName">
           </div>
-          <label for="newUser_DisplayName" t="addUser.displayName"></label>
+          <label t="addUser.displayName"></label>
           <div class="form-group">
-            <input type="text" class="form-control" id="newUser_Username" value.bind="newUserModel.DisplayName & validate" t="[placeholder]addUser.displayName">
+            <input type="text" class="form-control" value.bind="newUserModel.DisplayName & validate" t="[placeholder]addUser.displayName">
           </div>
-          <label for="exampleDropdownFormEmail1" t="addUser.email"></label>
+          <label t="addUser.email"></label>
           <div class="form-group">
-            <input type="email" class="form-control" id="exampleDropdownFormEmail1" value.bind="newUserModel.Email & validate" placeholder="email@example.com">
+            <input type="email" class="form-control" value.bind="newUserModel.Email & validate" placeholder="email@example.com">
           </div>
-          <label for="newUser_Password" t="addUser.password"></label>
+          <label t="addUser.password"></label>
           <div class="form-group">
-            <input type="password" class="form-control" id="newUser_Password" value.bind="newUserModel.Password & validate" change.delegate="confirmPassword = ''" t="[placeholder]addUser.password">
+            <input type="password" class="form-control" value.bind="newUserModel.Password & validate" change.delegate="confirmPassword = ''" t="[placeholder]addUser.password">
           </div>
-          <label for="newUser_ConfirmPassword" t="addUser.confirmPassword" for="confirmPassword"></label>
+          <label t="addUser.confirmPassword" for="confirmPassword"></label>
           <div class="form-group">
-            <input type="password" class="form-control" id="newUser_ConfirmPassword" value.bind="newUserModel.ConfirmPassword & validate"
+            <input type="password" class="form-control" value.bind="newUserModel.ConfirmPassword & validate"
               t="[placeholder]addUser.confirmPassword">
           </div>
           <div class="form-group">
