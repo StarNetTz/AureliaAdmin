@@ -15,16 +15,6 @@
         <li repeat.for="row of router.navigation | authFilter: isAuthenticated | authorizedFilter" class="${row.isActive ? 'nav-item active' : 'nav-item'}">
           <a class="nav-link" href.bind="row.href" t="${row.title}"></a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false" t="topNavBar.selectLanguage">
-
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#" click.delegate="setLocale('en')">English</a>
-            <a class="dropdown-item" href="#" click.delegate="setLocale('bs')">Bosnian</a>
-          </div>
-        </li>
       </ul>
       <login></login>      
     </div>
