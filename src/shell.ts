@@ -17,10 +17,8 @@ export class Shell {
     config.addPipelineStep('authorize', AuthorizeStep);
     config.map([
       { route: ['', 'welcome', 'login'], name: 'welcome', title: "topNavBar.welcome", moduleId: PLATFORM.moduleName('./views/welcome/welcome'), nav: true },
-      { route: 'dashboard', name: 'dashboard', title: "topNavBar.dashboard", moduleId: PLATFORM.moduleName('./views/dashboard/dashboard'), nav: true, auth: true },
       { route: 'users', name: 'users', title: "topNavBar.userManagement", moduleId: PLATFORM.moduleName('./views/users/users'), nav: true, auth: true, roles: ["admin"] }
     ]);
     this.router = router;
   }
- 
 }
