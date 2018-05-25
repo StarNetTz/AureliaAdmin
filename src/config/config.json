@@ -1,0 +1,8 @@
+{
+    "name": "Starnet Skeleton App",
+    "version": "1.0",
+    "api": {
+        "backend": "http://authstarnet.webhop.net:30086",
+        "auth": "http://authstarnet.webhop.net:30086"
+    }
+}

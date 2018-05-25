@@ -1,0 +1,8 @@
+{
+    "name": "Test Application",
+    "version": "1.2",
+    "api": {
+        "key": "somekey",
+        "endpoint": "http://www.google.com/"
+    }
+}

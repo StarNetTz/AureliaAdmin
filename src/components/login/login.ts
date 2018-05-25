@@ -32,12 +32,14 @@ export class Login {
     this.isBusy = true;
     try {
       let resp = await this.authService.login({ UserName: this.username, Password: this.password });
+      console.log(resp);
       var pl = <any>this.authService.getTokenPayload();  
       this.isAuthenticated = this.authService.authenticated;     
       this.loggedUser = pl.name;
       
     }
     catch (e) {
+      console.log(e);
       Toastr.error("Invalid username or password", 'Login');
       this.isAuthenticated = false;    
       this.loggedUser = "";
