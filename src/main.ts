@@ -10,6 +10,7 @@ import * as Toastr from 'toastr';
 import { ValidationMessageProvider, ValidationController } from 'aurelia-validation';
 import { I18N } from 'aurelia-i18n';
 import { Container } from 'aurelia-dependency-injection';
+import {AureliaConfiguration} from "aurelia-configuration";
 
 
 Toastr.options = {
@@ -43,6 +44,7 @@ export function configure(aurelia: Aurelia) {
     .feature(PLATFORM.moduleName('resources/index'))
     .plugin(PLATFORM.moduleName('aurelia-validation'))
     .plugin(PLATFORM.moduleName('aurelia-dialog'))
+    .plugin(PLATFORM.moduleName('aurelia-configuration'))
     .plugin(PLATFORM.moduleName('aurelia-i18n'), (instance) => {
       instance.i18next.use(Backend);
       return instance.setup({
@@ -58,8 +60,9 @@ export function configure(aurelia: Aurelia) {
       });
     })
     .plugin(PLATFORM.moduleName('aurelia-api'), config => {
-      config.registerEndpoint('api', 'http://authstarnet.webhop.net');
-      config.registerEndpoint('auth', 'http://authstarnet.webhop.net');
+      let configInstance = aurelia.container.get(AureliaConfiguration);
+      config.registerEndpoint('api', configInstance.get('api.backend'));
+      config.registerEndpoint('auth', configInstance.get('api.auth'));
     })
     .plugin(PLATFORM.moduleName('aurelia-authentication'), baseConfig => {
       baseConfig.configure(AuthConfig);

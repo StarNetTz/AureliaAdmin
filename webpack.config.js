@@ -119,7 +119,8 @@ module.exports = ({ production, server, extractCss, coverage } = {}) => ({
     new CheckerPlugin(),
     new CopyWebpackPlugin([
       { from: srcDir+'/locale', to: outDir+'/locale' },
-      { from: srcDir+'/assets', to: outDir+'/assets' }
+      { from: srcDir+'/assets', to: outDir+'/assets' }, 
+      { from: srcDir+'/config', to: outDir+'/config' }
     ]),
     new HtmlWebpackPlugin({
       template: 'index.ejs',

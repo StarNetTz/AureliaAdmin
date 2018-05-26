@@ -12,6 +12,7 @@
     "aurelia-api": "^3.1.1",
     "aurelia-authentication": "^3.7.0",
     "aurelia-bootstrapper": "^2.1.1",
+    "aurelia-configuration": "^2.0.0",
     "aurelia-dialog": "^1.0.0-rc.1.0.3",
     "aurelia-i18n": "^2.0.0",
     "aurelia-polyfills": "latest",
